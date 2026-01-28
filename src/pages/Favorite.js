@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navigation from "../components/Navigation";
 
-const Favorite = () => {
+const Favorite = (movie) => {
+  const reload = (movie) => {
+    if (localStorage.favorite) {
+      let array = JSON.parse(localStorage.favorite);
+
+      if (array.includes(movie.id)) console.log("ok");
+    } else return;
+  };
+  console.log(movie);
+
+  useEffect(() => {
+    reload(movie);
+  }, []);
+
   return (
     <div>
       <Navigation />

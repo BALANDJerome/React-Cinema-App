@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
   return (
@@ -6,8 +7,18 @@ const Navigation = () => {
       <h1>React Movies</h1>
       <nav>
         <ul>
-          <a href="/Home">Acueil</a>
-          <a href="/Favorite">Coups de coeur</a>
+          <NavLink
+            to="/"
+            className={(nav) => (nav.isActive ? "nav-active" : "")}
+          >
+            <li>Acueil</li>
+          </NavLink>
+          <NavLink
+            to="/favorite"
+            className={(nav) => (nav.isActive ? "nav-active" : "")}
+          >
+            <li>Coups de coeur</li>
+          </NavLink>
         </ul>
       </nav>
     </div>
