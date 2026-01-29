@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Navigation from "../components/Navigation";
+import Movies from "../components/Movies";
 
 const Favorite = (movie) => {
   const reload = (movie) => {
@@ -9,11 +10,10 @@ const Favorite = (movie) => {
       if (array.includes(movie.id)) console.log("ok");
     } else return;
   };
-  console.log(movie);
 
-  useEffect(() => {
-    reload(movie);
-  }, []);
+  // useEffect(() => {
+  //   reload(movie);
+  // }, []);
 
   return (
     <div>

@@ -45,7 +45,11 @@ const Card = ({ movie }) => {
   return (
     <div className="card">
       <img
-        src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
+        src={
+          movie.poster_path
+            ? "https://image.tmdb.org/t/p/original/" + movie.poster_path
+            : "./img/poster.jpg"
+        }
         alt=""
       />
       <h2>{movie.title}</h2>
