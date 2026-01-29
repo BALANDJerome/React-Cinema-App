@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-const Card = ({ movie }) => {
+const Card = ({ movie, genres }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const triGenre = (genreId) => {
+    for (const genre of genres) {
+      if (genre.id === genreId) {
+        return genre.name;
+      }
+    }
+  };
 
   const newDate = () => {
     let arrayDate = movie.release_date.split("-");
@@ -59,7 +67,9 @@ const Card = ({ movie }) => {
         <span>&#x2B50;</span>
       </h4>
       <ul>
-        <li>{movie.genre_ids}</li>
+        {movie.genre_ids.map((id) => {
+          return <li key={id}>{triGenre(id)}</li>;
+        })}
       </ul>
       <h3>Synopsis</h3>
       <p>{movie.overview}</p>

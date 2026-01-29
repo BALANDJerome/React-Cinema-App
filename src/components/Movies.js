@@ -38,7 +38,7 @@ const Movies = ({ input }) => {
   return (
     <div className="result">
       {dataMovies.map((movie) => {
-        return <Card key={movie.id} movie={movie} />;
+        return <Card key={movie.id} movie={movie} genres={dataGenresMovies} />;
       })}
     </div>
   );
