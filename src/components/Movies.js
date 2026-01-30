@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "./Card.js";
 
-const Movies = ({ input }) => {
+const Movies = ({ input, top, flop }) => {
   const [dataMovies, setDataMovies] = useState([]);
   const [dataGenresMovies, setDataGenresMovies] = useState([]);
+
+  console.log(top, flop);
 
   useEffect(() => {
     if (input) {
@@ -37,9 +39,19 @@ const Movies = ({ input }) => {
 
   return (
     <div className="result">
-      {dataMovies.map((movie) => {
-        return <Card key={movie.id} movie={movie} genres={dataGenresMovies} />;
-      })}
+      {dataMovies
+        .sort((a, b) => {
+          return top
+            ? b.vote_average - a.vote_average
+            : flop
+              ? a.vote_average - b.vote_average
+              : a - b;
+        })
+        .map((movie) => {
+          return (
+            <Card key={movie.id} movie={movie} genres={dataGenresMovies} />
+          );
+        })}
     </div>
   );
 };

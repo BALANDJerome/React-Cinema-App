@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Form = ({ inputSearchValue, top, flop }) => {
+const Form = ({ inputSearchValue, topValue, flopValue }) => {
   const [inputSearch, setInputSearch] = useState("");
 
   return (
@@ -28,13 +28,21 @@ const Form = ({ inputSearchValue, top, flop }) => {
       <div className="btn-sort-container">
         <button
           id="goodToBad"
-          onClick={() => (top ? false : true, (flop = false))}
+          onClick={() =>
+            topValue(true)
+              ? topValue(false)
+              : (topValue(true), flopValue(false))
+          }
         >
           Top<span>&#8680;</span>
         </button>
         <button
           id="badToGood"
-          onClick={() => (flop ? false : true, (top = false))}
+          onClick={() =>
+            flopValue(true)
+              ? flopValue(false)
+              : (flopValue(true), topValue(false))
+          }
         >
           <span>&#8680;</span>Flop
         </button>
