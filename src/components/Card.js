@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Card = ({ movie, genres }) => {
+const Card = ({ movie, genres, favorite }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const triGenre = (genreId) => {
@@ -42,8 +42,13 @@ const Card = ({ movie, genres }) => {
     array = JSON.parse(localStorage.favorite);
     const index = array.indexOf(movie);
     newArray = array.splice(index, 1);
-    localStorage.favorite = JSON.stringify(array);
+    if (array.length === 0) {
+      localStorage.removeItem("favorite");
+    } else {
+      localStorage.favorite = JSON.stringify(array);
+    }
     setIsFavorite(false);
+    if (favorite) window.location.reload();
   };
 
   useEffect(() => {

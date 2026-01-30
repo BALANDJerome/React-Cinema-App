@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
 import Movies from "../components/Movies";
 
-const Favorite = (movie) => {
-  const reload = (movie) => {
-    if (localStorage.favorite) {
-      let array = JSON.parse(localStorage.favorite);
+const Favorite = () => {
+  const [favoriteMovies, setFavoriteMovies] = useState();
 
-      if (array.includes(movie.id)) console.log("ok");
-    } else return;
-  };
-
-  // useEffect(() => {
-  //   reload(movie);
-  // }, []);
+  useEffect(() => {
+    localStorage.favorite ? setFavoriteMovies(true) : setFavoriteMovies(false);
+  }, []);
 
   return (
     <div>
@@ -22,7 +16,11 @@ const Favorite = (movie) => {
         <h2>
           Coups de coeur &#128150;
           <br />
-          <span>Aucun coup de coeur pour le moment</span>
+          {favoriteMovies ? (
+            <Movies favorite />
+          ) : (
+            <span>Aucun coup de coeur pour le moment</span>
+          )}
         </h2>
       </div>
     </div>

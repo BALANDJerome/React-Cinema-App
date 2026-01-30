@@ -2,11 +2,24 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "./Card.js";
 
-const Movies = ({ input, top, flop }) => {
+const Movies = ({ input, top, flop, favorite }) => {
   const [dataMovies, setDataMovies] = useState([]);
   const [dataGenresMovies, setDataGenresMovies] = useState([]);
 
-  console.log(top, flop);
+  const reload = (movie) => {
+    if (localStorage.favorite) {
+      let array = JSON.parse(localStorage.favorite);
+      if (array.includes(movie.id))
+        return (
+          <Card
+            key={movie.id}
+            movie={movie}
+            genres={dataGenresMovies}
+            favorite
+          />
+        );
+    } else return;
+  };
 
   useEffect(() => {
     if (input) {
@@ -41,14 +54,18 @@ const Movies = ({ input, top, flop }) => {
     <div className="result">
       {dataMovies
         .sort((a, b) => {
-          return top
-            ? b.vote_average - a.vote_average
-            : flop
-              ? a.vote_average - b.vote_average
-              : a - b;
+          if (top) return b.vote_average - a.vote_average;
+          if (flop) return a.vote_average - b.vote_average;
+          else
+            return (
+              parseInt(b.release_date.split("-").join("")) -
+              parseInt(a.release_date.split("-").join(""))
+            );
         })
         .map((movie) => {
-          return (
+          return favorite ? (
+            reload(movie)
+          ) : (
             <Card key={movie.id} movie={movie} genres={dataGenresMovies} />
           );
         })}
