@@ -125,6 +125,13 @@ li {
       justify-content: space-around;
   cursor: pointer;
 }
+.form-component .btn-sort-container .btn-sort {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
 .form-component .btn-sort-container #goodToBad {
   border-radius: 10px 0 0 10px;
 }
