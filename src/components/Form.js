@@ -1,12 +1,20 @@
 import React from "react";
 
-const Form = () => {
+const Form = ({ inputValue }) => {
   return (
     <div className="form-component">
       <div className="form-container">
         <form>
-          <input type="text" placeholder="Taper le nom d'un film" />
-          <input type="submit" value="Rechercher" />
+          <input
+            type="text"
+            placeholder="Taper le nom d'un film"
+            onChange={(e) => inputValue(e.target.value)}
+          />
+          <input
+            type="submit"
+            value="Rechercher"
+            onClick={(e) => e.preventDefault()}
+          />
         </form>
       </div>
       <div className="btn-sort-container">
