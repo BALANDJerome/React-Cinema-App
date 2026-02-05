@@ -7,6 +7,7 @@ import Card from "../components/Card";
 const Home = ({ dataGenresMovies }) => {
   const [dataMovies, setDataMovies] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [sortMovies, setSortMovies] = useState("");
 
   useEffect(() => {
     if (inputValue === "") {
@@ -33,15 +34,31 @@ const Home = ({ dataGenresMovies }) => {
   return (
     <div className="home-page">
       <Header />
-      <Form inputValue={setInputValue} />
+      <Form
+        inputValue={setInputValue}
+        setSortMovies={setSortMovies}
+        sortMovies={sortMovies}
+      />
       <div className="result">
-        {dataMovies.map((movie) => (
-          <Card
-            movie={movie}
-            key={movie.id}
-            dataGenresMovies={dataGenresMovies}
-          />
-        ))}
+        {dataMovies
+          .sort((a, b) => {
+            if (sortMovies === "badToGood") {
+              return a.vote_average - b.vote_average;
+            } else if (sortMovies === "goodToBad") {
+              return b.vote_average - a.vote_average;
+            } else
+              return (
+                parseInt(b.release_date.split("-").join("")) -
+                parseInt(a.release_date.split("-").join(""))
+              );
+          })
+          .map((movie) => (
+            <Card
+              movie={movie}
+              key={movie.id}
+              dataGenresMovies={dataGenresMovies}
+            />
+          ))}
       </div>
     </div>
   );

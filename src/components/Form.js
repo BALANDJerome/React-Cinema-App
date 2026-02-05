@@ -1,6 +1,6 @@
 import React from "react";
 
-const Form = ({ inputValue }) => {
+const Form = ({ inputValue, setSortMovies, sortMovies }) => {
   return (
     <div className="form-component">
       <div className="form-container">
@@ -18,10 +18,26 @@ const Form = ({ inputValue }) => {
         </form>
       </div>
       <div className="btn-sort-container">
-        <div className="btn-sort" id="goodToBad">
+        <div
+          className="btn-sort"
+          id="goodToBad"
+          onClick={() => {
+            sortMovies === "" || sortMovies === "badToGood"
+              ? setSortMovies("goodToBad")
+              : setSortMovies("");
+          }}
+        >
           Top<span>➔</span>
         </div>
-        <div className="btn-sort" id="badToGood">
+        <div
+          className="btn-sort"
+          id="badToGood"
+          onClick={() =>
+            sortMovies === "" || sortMovies === "goodToBad"
+              ? setSortMovies("badToGood")
+              : setSortMovies("")
+          }
+        >
           Flop<span>➔</span>
         </div>
       </div>
