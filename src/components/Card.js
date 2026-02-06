@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Card = ({ movie, dataGenresMovies }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const dateFormater = (date) => {
     let [yy, mm, dd] = date.split("-");
     return [dd, mm, yy].join("/");
@@ -10,6 +12,30 @@ const Card = ({ movie, dataGenresMovies }) => {
     for (const genre of dataGenresMovies)
       if (genre.id === genreId) return genre.name;
   };
+
+  const changeFavorite = () => {
+    let movieLike = window.localStorage.movieLike
+      ? window.localStorage.getItem("movieLike").split(",")
+      : [];
+    if (!movieLike.includes(movie.id.toString())) {
+      movieLike.push(movie.id);
+      window.localStorage.setItem("movieLike", movieLike);
+      setIsFavorite(true);
+    } else {
+      let newData = movieLike.filter((id) => id !== movie.id.toString());
+      window.localStorage.movieLike = newData;
+      setIsFavorite(false);
+      window.location.reload();
+    }
+  };
+
+  useEffect(() => {
+    let movieLike = window.localStorage.movieLike
+      ? window.localStorage.movieLike.split(",")
+      : [];
+    if (movieLike.includes(movie.id.toString())) setIsFavorite(true);
+    else return;
+  }, [movie.id]);
 
   return (
     <div className="card">
@@ -40,7 +66,15 @@ const Card = ({ movie, dataGenresMovies }) => {
       </ul>
       <h3>Synopsis</h3>
       <p>{movie.overview ? movie.overview : ""}</p>
-      <div className="btn">Ajouter aux favoris</div>
+      {isFavorite ? (
+        <div type="submit" className="btn" onClick={() => changeFavorite()}>
+          Retirer
+        </div>
+      ) : (
+        <div type="submit" className="btn" onClick={() => changeFavorite()}>
+          Ajouter aux favoris
+        </div>
+      )}
     </div>
   );
 };
